@@ -1,0 +1,314 @@
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lisa Test mit 56 Elementen und 30 Fragen</title>
+  <style>
+  
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: black;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin: 5px;
+      display: inline-block;
+    }
+    .question button {
+      background-color: orange;
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .question button.selected {
+      background-color: darkorange;
+    }
+    #results {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: transparent; /* Hintergrundfarbe unsichtbar */
+    }
+    #evaluate {
+      margin-top: 20px;
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <p></p><h1>Lisa – Die Elemente Testplattform</h1>
+  <div id="questions"></div>
+  <button id="evaluate">Testplatte ziehen</button>
+  <div id="results"></div>
+
+  <script>
+    const questions = [
+      "magnetisch", "paramagnetisch", "diamagnetisch", "korrosiv", 
+      "korrosionsbeständig", "reaktiv mit Wasser", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", 
+      "flüssig bei Raumtemperatur", "gasförmig bei Raumtemperatur", "giftig", "brennbar", 
+      "nicht brennbar", "teuer", "günstig", "häufig", "selten", "hitzebeständig", 
+      "nicht hitzebeständig", "hohe Dichte", "geringe Dichte", "hohes Gewicht", 
+      "geringes Gewicht", "stabil", "brüchig", "lässt sich gut legieren",]
+      ;
+
+    const elements = {
+      "Eisen": ["magnetisch", "günstig", "stabil", "metallisch", "häufig", "strahlenbeständig", 
+      "hitzebeständig", "reaktiv mit Wasser", "technisch verwendet", "korrosiv", "leitet Strom", 
+      "fest bei Raumtemperatur", "nicht brennbar", "lässt sich gut legieren", 
+      "hohe Dichte", "hohes Gewicht"],
+      
+      "Kupfer": ["metallisch", "paramagnetisch", "leitet Strom","strahlenbeständig", 
+      "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar", "günstig", "häufig", 
+      "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", "lässt sich gut legieren"],
+      
+      "Gold": ["korrosionsbeständig", "metallisch", "edelmetall", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar", 
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Silber": ["paramagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur",
+      "nicht brennbar", "teuer", "häufig", "hitzebeständig", "hohe Dichte", "hohes Gewicht",
+      "stabil", "lässt sich gut legieren"],
+      
+      "Platin": ["paramagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", 
+      "nicht brennbar", "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "lässt sich gut legieren"],
+      
+      "Aluminium": ["paramagnetisch", "korrosionsbeständig", "reaktiv mit Wasser", 
+      "metallisch", "leitet Strom", "technisch verwendet", "fest bei Raumtemperatur", 
+      "nicht brennbar", "günstig", "nicht hitzebeständig", "geringe Dichte", 
+      "geringes Gewicht", "stabil", "lässt sich gut legieren"],
+      
+      "Quecksilber": ["paramagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "technisch verwendet", "flüssig bei Raumtemperatur", "giftig", "nicht brennbar", "teuer",
+      "selten", "nicht hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "lässt sich gut legieren"],       
+      
+      "Zink": ["korrosionsbeständig","reaktiv mit Wasser", "metallisch", "leitet Strom", 
+      "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar", "günstig", "häufig",
+      "hitzebeständig", "geringe Dichte", "geringes Gewicht", "stabil", "brüchig", 
+      "lässt sich gut legieren"],
+      
+      "Blei": ["paramagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "giftig", 
+      "nicht brennbar", "günstig", "nicht hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "brüchig", "lässt sich gut legieren"],
+      
+      "Titan": ["paramagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", 
+      "nicht brennbar", "selten", "geringe Dichte", "geringes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Kalium": ["reaktiv mit Wasser", "metallisch", "leitet Strom", "technisch verwendet", 
+      "fest bei Raumtemperatur", "brennbar", "günstig", "häufig", "nicht hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "lässt sich gut legieren"],
+      
+      "Natrium": ["reaktiv mit Wasser", "metallisch", "leitet Strom", "technisch verwendet",
+      "fest bei Raumtemperatur", "brennbar", "günstig", "häufig", "nicht hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "lässt sich gut legieren"],
+      
+      "Lithium": ["paramagnetisch", "reaktiv mit Wasser", "metallisch", 
+      "technisch verwendet", "fest bei Raumtemperatur", "giftig", "brennbar", 
+      "teuer", "selten", "hitzebeständig", "geringe Dichte", "geringes Gewicht", 
+      "lässt sich gut legieren"],
+      
+      "Magnesium": ["paramagnetisch", "reaktiv mit Wasser", "metallisch", "leitet Strom", 
+      "technisch verwendet", "brennbar", "günstig", "häufig", "hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "stabil", "lässt sich gut legieren"],
+      
+      "Kalzium": ["paramagnetisch", "reaktiv mit Wasser", "metallisch", "leitet Strom", 
+      "technisch verwendet", "brennbar", "günstig", "hitzebeständig", "geringe Dichte", 
+      "geringes Gewicht", "lässt sich gut legieren"],
+      
+      "Phosphor": ["reaktiv mit Wasser", "technisch verwendet", "fest bei Raumtemperatur", 
+      "giftig", "brennbar", "günstig", "häufig", "nicht hitzebeständig", "geringe Dichte", 
+      "geringes Gewicht", "brüchig"],
+      
+      "Schwefel": ["korrosionsbeständig", "strahlenbeständig", "technisch verwendet", 
+      "fest bei Raumtemperatur", "brennbar", "günstig", "häufig", "hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "stabil", "brüchig"],
+      
+      "Kohlenstoff": ["korrosionsbeständig", "strahlenbeständig", "technisch verwendet", 
+      "fest bei Raumtemperatur", "brennbar", "günstig", "häufig", "hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "stabil", "brüchig", "lässt sich gut legieren"],
+      
+      "Stickstoff": ["korrosionsbeständig", "strahlenbeständig", 
+      "technisch verwendet", "gäsförmig bei Raumtemperatur", "nicht brennbar", 
+      "günstig", "häufig", "hitzebeständig", "geringe Dichte", "geringes Gewicht", 
+      "stabil"],
+      
+      "Sauerstoff": ["paramagnetisch", "strahlenbeständig", "technisch verwendet", 
+      "gasförmig bei Raumtemperatur", "nicht brennbar", "günstig", "häuftig", 
+      "hitzebeständig", "geringe Dichte", "geringes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Neon": ["korrosionsbeständig", "strahlenbeständig", "technisch verwendet", 
+      "gasförmig bei Raumtemperatur", "nicht brennbar", "teuer", "selten", "hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "stabil"],
+      
+      "Krypton": ["korrosionsbeständig", "diamagnetisch", "strahlenbeständig", "technisch verwendet",
+      "gasförmig bei Raumtemperatur", "nicht brennbar", "teuer", "selten", "hohe Dichte",
+      "hohes Gewicht", "stabil"],
+      
+      "Xenon": ["diamagnetisch", "korrosionsbeständig", "technisch verwendet", 
+      "gasförmig bei Raumtermperatur", "giftig", "nicht brennbar", "teuer", "selten", 
+      "hitzebeständig", "hohe Dichte", "hohes Gewicht"],
+      
+      "Radon": ["diamagnetisch", "technisch verwendet", 
+      "gasförmig bei Raumtemperatur", "giftig", "nicht brennbar", 
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht"],
+      
+      "Helium": ["diamagnetisch", "korrosionsbeständig", "strahlenbeständig", 
+      "technisch verwendet", "gasförmig bei Raumtemperatur", "nicht brennbar", 
+      "teuer", "selten", "hitzebeständig", "geringe Dichte", "geringes Gewicht", "stabil"],
+      
+      "Wasserstoff": ["diamagnetisch", "strahlenbeständig", "technisch verwendet", 
+      "gasförmig bei Raumtemperatur", "brennbar", "teuer", "häufig", "nicht hitzebeständig", 
+      "geringe Dichte", "geringes Gewicht", "stabil"],
+      
+      "Argon": ["diamagnetisch", "korrosionsbeständig", "strahlenbeständig", 
+      "technisch verwendet", "gasförmig bei Raumtemperatur", "nicht brennbar", 
+      "günstig", "häufig", "hitzebeständig" ,"hohe Dichte", "hohes Gewicht", "stabil"],
+      
+      "Kohlenstoffdioxid": ["diamagnetisch", "korrosionsbeständig", "reaktiv mit Wasser", 
+      "strahlenbeständig", "technisch verwendet", "gasförmig bei Raumtemperatur", "giftig", 
+      "nicht brennbar", "günstig", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil"],
+      
+      "Chlor": ["diamagnetisch", "reaktiv mit Wasser", "strahlenbeständig", 
+      "technisch verwendet", "gasförmig bei Raumtemperatur", "giftig", "nicht brennbar", 
+      "günstig", "häufig", "hohe Dichte", "hohes Gewicht", "stabil"],
+      
+      "Fluor": ["diamagnetisch", "reaktiv mit Wasser", "strahlenbeständig", 
+      "technisch verwendet", "gasförmig bei Raumtemperatur", "giftig", "nicht brennbar", 
+      "teuer", "selten", "geringes Gewicht", "stabil"],
+      
+      "Iod": ["diamagnetisch", "strahlenbeständig", "technisch verwendet", 
+      "fest bei Raumtemperatur", "giftig", "nicht brennbar", "selten", 
+      "nicht hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", "brüchig"],
+      
+      "Brom": ["diamagnetisch", "reaktiv mit Wasser", "strahlenbeständig", 
+      "technisch verwendet", "flüssig bei Raumtemperatur", "giftig", "nicht brennbar", 
+      "hohe Dichte", "hohes Gewicht", "Stabil"],
+      
+      "Wismut": ["diamagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar", 
+      "Teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", "brüchig", 
+      "lässt sich gut legieren"],
+      
+      "Tantal": ["paramagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", 
+      "nicht brennbar", "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "lässt sich gut legieren"],
+      
+      "Vanadium": ["paramagnetisch", "korrosionsbeständig", "reaktiv mit Wasser", 
+      "metallisch", "leitet Strom", "strahlenbeständig", "technisch verwendet", 
+      "fest bei Raumtemperatur", "nicht brennbar", "teuer", "selten", "hitzebeständig", 
+      "hohe Dichte", "hohes Gewicht", "stabil", "lässt sich gut legieren"],
+      
+      "Niob": ["paramagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "technisch verwendet", "strahlenbeständig", "fest bei Raumtemperatur", "nicht brennbar", 
+      "selten", "teuer", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Molybdän": ["paramagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar",
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Rhenium": ["paramagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "giftig", 
+      "nicht brennbar", "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "lässt sich gut legieren"],
+      
+      "Osmium": ["magnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "giftig", 
+      "nicht brennbar", "selten", "teuer", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "brüchig", "lässt sich gut legieren"],
+      
+      "Iridium": ["paramagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", 
+      "nicht brennbar", "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "lässt sich gut legieren"],
+      
+      "Ruthenium": ["diamagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", 
+      "nicht brennbar", "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", 
+      "stabil", "lässt sich gut legieren"],
+      
+      "Rhodium": ["diamagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar", 
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Palladium": ["diamagnetisch", "korrosionsbeständig", "metallisch", "edelmetall", 
+      "leitet Strom", "strahlenbeständig", "fest bei Raumtemperatur", "nicht brennbar", 
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Hafnium": ["diamagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "nicht brennbar", 
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+      "Zirkonium": ["diamagnetisch", "korrosionsbeständig", "metallisch", "leitet Strom", 
+      "strahlenbeständig", "technisch verwendet", "fest bei Raumtemperatur", "brennbar", 
+      "teuer", "selten", "hitzebeständig", "hohe Dichte", "hohes Gewicht", "stabil", 
+      "lässt sich gut legieren"],
+      
+    };
+
+    const selectedQuestions = new Set();
+    const questionsDiv = document.getElementById("questions");
+    const resultsDiv = document.getElementById("results");
+    const evaluateButton = document.getElementById("evaluate");
+
+    questions.forEach(q => {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("question");
+      const btn = document.createElement("button");
+      btn.innerText = q;
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("selected");
+        if (selectedQuestions.has(q)) {
+          selectedQuestions.delete(q);
+        } else {
+          selectedQuestions.add(q);
+        }
+      });
+      wrapper.appendChild(btn);
+      questionsDiv.appendChild(wrapper);
+    });
+
+    evaluateButton.addEventListener("click", () => {
+      const result = [];
+      for (let [element, props] of Object.entries(elements)) {
+        if ([...selectedQuestions].every(q => props.includes(q))) {
+          result.push(element);
+        }
+      }
+      resultsDiv.innerHTML = result.length > 0
+        ? `<strong>Gefundene Elemente:</strong><br>${result.join(", ")}`
+        : "<strong>Keine Elemente passen zu diesen Eigenschaften.</strong>";
+    });
+  </script>
+</body>
+</html>
