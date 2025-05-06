@@ -1,0 +1,49 @@
+# Structure of "Lisa"
+
+## Overview
+
+**Lisa** is a mechanical question system that works with balls, drill holes, and a question card. The goal is to playfully determine whether certain elements, topics, or properties can "pass through" — meaning they answer the question correctly.
+
+## Components
+
+* **Top Plate**  
+  A solid top plate with various drilled holes. These define fixed positions for the balls. Each ball symbolically represents an element (e.g., a property, color, topic, word, etc.).
+
+* **Balls**  
+  The balls are placed on the top plate. Depending on layout and size, there can be a few or many.
+
+* **Safety/Test Plate**  
+  Beneath the top plate is a removable plate that initially holds the balls in place.
+
+* **Question Cards (with holes)**  
+  Below that lies a card with specific drill holes representing individual "questions". The card only allows balls to pass through if the respective question is answered with “Yes”.
+
+## How It Works
+
+1. Balls are placed into the holes of the top plate.  
+2. One or more question cards are inserted underneath.  
+3. When the safety plate is removed, only those balls fall through that symbolically answer “Yes” to the question.  
+4. All others remain on the plate.  
+5. This allows targeted testing of which balls can pass through.  
+6. Afterwards, the question cards can be pulled out in reverse to analyze the path of the balls.
+
+## Possible Materials
+
+* Wood (classic)  
+* Plastic  
+* 3D-printable versions for future DIY use
+
+## Application Ideas
+
+* Playful learning system  
+* Self-tests (personality, knowledge, preferences)  
+* Experimental category filter  
+* Creative brainstorming tool  
+* Cryptography
+
+## Next Steps
+
+* Create example sketches (help urgently needed)  
+* Build instructions (PDF & 3D files)  
+* Pick up prototypes and define DIN dimensions  
+* Launch on the website: Lisa.Schule
